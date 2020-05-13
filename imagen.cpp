@@ -33,7 +33,7 @@ Imagen::Imagen(std::ifstream& input){
 void Imagen::readPGM(std::ifstream& input){
 	std::string line;
 	int pos_space;
-	
+
 	while(getline(input, line)){
 		if(line[0] == PGM_COMENTARIO)
 			continue;
@@ -41,14 +41,14 @@ void Imagen::readPGM(std::ifstream& input){
 			//RETURN ERROR
 		break;
 	}
-	
+
 	while(getline(input, line)){
 		if(line[0] == PGM_COMENTARIO)
 			continue;
-			
+
 		//Llena valores columnas y filas y hace el resize.
 		pos_space = line.find(' ');
-		
+
 		columnas = std::stoi(line.substr(0, pos_space));
 		filas = std::stoi(line.substr(pos_space + 1));
 		matriz.resize(filas);
@@ -58,7 +58,7 @@ void Imagen::readPGM(std::ifstream& input){
 		break;
 		//validar
 	}
-	
+
 	while(getline(input, line)){
 		if(line[0] == PGM_COMENTARIO)
 			continue;
@@ -67,11 +67,11 @@ void Imagen::readPGM(std::ifstream& input){
 		break;
 	}
 
-	
+
 	while(getline(input, line)){
 		if(line[0] == PGM_COMENTARIO)
 			continue;
-			
+
 		for(int i = 0; i < filas; i++){
 			for(int j = 0; j < columnas; j++){
 				pos_space = line.find(' ');
@@ -101,14 +101,14 @@ void Imagen::savePGM(std::ofstream& output){
 		   << PGM_COMENTARIO << MENSAJE << std::endl
 		   << columnas << ' ' << filas << std::endl
 		   << intensidad << std::endl;
-	
+
 	for(int i = 0; i < filas; i++){
 		for(int j = 0; j < columnas; j++){
 			output << matriz[i][j] << "  ";
 		}
 		output << std::endl;
 	}
-		   
+
 	//ver si se puede mejorar
 	//ver tema espacios
 }
@@ -129,7 +129,7 @@ Imagen::Imagen(int fil, int col, int intens){
 * */
 
 Imagen::~Imagen(){
-  
+
 }
 
 int Imagen::getFilas() const{
@@ -166,22 +166,41 @@ void Imagen::transf_z(const Imagen & imagen_1){
 
 void Imagen::transf_exp(const Imagen & imagen_1){
   int x_0, y_0, x, y;
+	double mod, factor_pi =  imagen_1.filas / (2 * PI);
   x_0 = imagen_1.columnas/2;
   y_0 = imagen_1.filas/2;
 
+	std::cout << x_0 << "," <<y_0 << std::endl;
   for (int i = 0; i < imagen_1.filas; i++) {
     for (int j = 0; j < imagen_1.columnas; j++) {
+				j = -j;
+				mod = (i-x_0)*(i-x_0) + (j+y_0)*(j+y_0);
+				x = log(mod)/2 + x_0;
 
-        x = log((i-y_0)*(i-y_0)+(j-x_0)*(j-x_0))/2 - x_0;
-        // y = ... -  y_0 calcular fase
-        y = 0;
+				if ((i == x_0) && (j = -y_0)) {
+					break; // temporal
+					y = -y_0; // La fase en 0 la defino como 0
+				} else if ((i - x_0) > 0) {
+					if ((j + y_0) > 0) {
+						y = factor_pi * atan((j + y_0)/(i - x_0)) - y_0;
+					} else {
+						y = (-factor_pi) * atan((j + y_0)/(i - x_0)) - y_0;
+					}
+				} else {
+					if ((j + y_0) < 0) {
+						y = factor_pi * atan((j + y_0)/(i - x_0)) - 2 * y_0;
+					} else {
+						y = - factor_pi * atan((j + y_0)/(i - x_0)) ;
+					}
+				}
+				std::cout << i << "," << j << std::endl;
+				j = -j;
+				if ((x < 0) || (x > imagen_1.columnas) || (y < 0) || (y > imagen_1.filas)) {
+          matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
+        } else {
+					matriz[i][j] = imagen_1.matriz[y][x];
+				}
 
-        if ((x < 0) || (x > imagen_1.columnas) || (y < 0) || (y > imagen_1.filas)) {
-          matriz[i][j] = imagen_1.intensidad;
-        }
-		
-		
-        matriz[i][j] = imagen_1.matriz[y][x];
     }
   }
 }

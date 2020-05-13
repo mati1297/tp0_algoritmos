@@ -14,9 +14,12 @@
 
 #define PGM_COMENTARIO '#'
 #define PGM_INDICADOR "P2"
-#define MENSAJE "Hecho con el programa de grupo"
+#define MENSAJE "Hecho con el programa del grupo"
 
-
+#define CONV_RAD_DEG 57.2957795131
+#ifndef PI
+#define PI 3.14159265358979323846
+#endif
 
 enum funcion { z = 0,  exponencial};
 
@@ -25,7 +28,7 @@ private:
   int filas;
   int columnas;
   int intensidad; //poner algo como intensidad maxima
-  std::vector<std::vector<int>> matriz = std::vector<std::vector<int>>(FILAS_DEF);
+  std::vector<std::vector<int> > matriz = std::vector<std::vector<int> >(FILAS_DEF);
   void transf_z(const Imagen & imagen_1);
   void transf_exp(const Imagen & imagen_1);
 public:
@@ -37,7 +40,7 @@ public:
   int getFilas() const;//cambiar filas y columnas para mi
   int getColumnas() const;
   int getIntensidad() const;
-  
+
   void readPGM(std::ifstream&);
   void savePGM(std::ofstream&);
 
