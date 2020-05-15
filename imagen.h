@@ -41,6 +41,7 @@ public:
   //Imagen &operator=(const Imagen &);
   //Imagen &operator==(const Imagen &);  // Para que queres esta??, porque no usar la de abajo.
   bool igual_tamano(const Imagen & referencia);
+  bool distintas_imagen(const Imagen & referencia);
   void transformar(const Imagen & imagen_1, FUNCION f);
   ~Imagen();
   int getFilas() const;//cambiar filas y columnas para mi

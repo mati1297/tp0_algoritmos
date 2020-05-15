@@ -1,8 +1,10 @@
+#include "imagen.h"
+
 #include <cmath>
 #include <vector>
 #include <fstream>
 #include <string>
-#include "imagen.h"
+
 
 
 
@@ -165,22 +167,22 @@ int Imagen::getIntensidad() const{
   return intensidad;
 }
 
-bool igual_tamano(const Imagen & referencia) {
-	if (referencia.filas == filas) {
-		if (referencia.columnas == columnas) {
-			return true
+bool Imagen::igual_tamano(const Imagen & referencia) {
+	if ((referencia.filas) == filas) {
+		if ((referencia.columnas) == columnas) {
+			return true;
 		}
 	}
-	return false
+	return false;
 }
 // Devuelve true si las matrices de las imagenes son distintas y no NULL
-bool distintas_imagen (const Imagen & referencia) {
+bool Imagen::distintas_imagen (const Imagen & referencia) {
 	if (referencia.matriz != matriz) {
-		if ((matriz) && (referencia.matriz)){
-			return true
-		}
+		//if ((matriz != NULL ) && (referencia.matriz != NULL)){
+			return true;
+		//}
 	}
-	return flase
+	return false;
 }
 
 /*

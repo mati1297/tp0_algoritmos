@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include "imagen.h"
-#include "comandos.h"
+#include "cmdline.h"
+#include "argumentos_cmdline.h"
 
 using namespace std;
 
