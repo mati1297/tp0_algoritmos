@@ -1,12 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include "imagen.h"
+
 #include "cmdline.h"
 #include "argumentos_cmdline.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char * const argv[]) {
+
+	cmdline cmdl(options);
+	cmdl.parse(argc, argv);
 
 	ifstream file;
 	ofstream f_salida;
