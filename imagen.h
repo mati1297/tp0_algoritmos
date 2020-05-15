@@ -11,10 +11,11 @@
 #define COLUMNAS_DEF 20
 #define INTENSIDAD_DEF 5
 #define VALOR_DEF 0
+#define NUMEROS_RENGLON_SALIDA 19
 
 #define PGM_COMENTARIO '#'
 #define PGM_INDICADOR "P2"
-#define MENSAJE "Hecho con el programa del grupo"
+#define MENSAJE "Hecho con el programa del grupo Charrut Cabeza"
 
 #define CONV_RAD_DEG 57.2957795131
 #ifndef PI

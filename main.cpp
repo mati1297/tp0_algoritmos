@@ -8,11 +8,10 @@ int main() {
 
 	ifstream file;
 	ofstream f_salida;
-	file.open("hola_1.pgm");
+	file.open("baboon.pgm");
 	Imagen entrada(file);
 	Imagen salida(entrada.getFilas(), entrada.getColumnas(), entrada.getIntensidad(), 0);
 	salida.transformar(entrada, exponencial);
-
 	f_salida.open("salida.pgm");
 	salida.savePGM(f_salida);
 	file.close();

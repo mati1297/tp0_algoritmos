@@ -33,59 +33,75 @@ Imagen::Imagen(std::ifstream& input){
 void Imagen::readPGM(std::ifstream& input){
 	std::string line;
 	int pos_space;
-
+	
 	while(getline(input, line)){
 		if(line[0] == PGM_COMENTARIO)
 			continue;
 		if(!line.compare(PGM_INDICADOR))
 			//RETURN ERROR
+			
 		break;
 	}
-
+	
+	
+	
 	while(getline(input, line)){
-		if(line[0] == PGM_COMENTARIO)
+		if(quitarCharInicio(line, ' ')[0] == PGM_COMENTARIO)
 			continue;
-
+			
 		//Llena valores columnas y filas y hace el resize.
 		pos_space = line.find(' ');
-
+		
 		columnas = std::stoi(line.substr(0, pos_space));
 		filas = std::stoi(line.substr(pos_space + 1));
 		matriz.resize(filas);
-		for(int i = 0; i < filas; i++){
+		for(int i = 0; i < filas; i++)
 			matriz[i].resize(columnas, VALOR_DEF);
-			}
 		break;
 		//validar
 	}
+	
+	
 
 	while(getline(input, line)){
-		if(line[0] == PGM_COMENTARIO)
+		if(quitarCharInicio(line, ' ')[0] == PGM_COMENTARIO)
 			continue;
 		intensidad = stoi(line);
 		//VALIDAR
 		break;
 	}
-
-
+	
+	
+	
 	while(getline(input, line)){
-		if(line[0] == PGM_COMENTARIO)
+		if(quitarCharInicio(line, ' ')[0] == PGM_COMENTARIO)
 			continue;
-
+			
 		for(int i = 0; i < filas; i++){
 			for(int j = 0; j < columnas; j++){
+				line = quitarCharInicio(line, ' ');
 				pos_space = line.find(' ');
-				if(pos_space != -1){
+				if(pos_space!=-1){
 					matriz[i][j] = std::stoi(line.substr(0, pos_space));
-					line = quitarCharInicio(line.substr(pos_space), ' ');
+					line = line.substr(pos_space);
 				}
+				else{
+					if(line.size())
+						matriz[i][j] = std::stoi(line);
+					else
+						j--;
+					getline(input, line);
+				}
+			
 				//VALIDAR
 			}
-			getline(input, line);
+			//getline(input, line);
+			//validar comentarios entre lineas de la imagen
 		}
 		break;
 	}
 }
+
 
 std::string quitarCharInicio(std::string input, char caracter){
 	int i;
@@ -101,14 +117,19 @@ void Imagen::savePGM(std::ofstream& output){
 		   << PGM_COMENTARIO << MENSAJE << std::endl
 		   << columnas << ' ' << filas << std::endl
 		   << intensidad << std::endl;
-
+	int contador_renglon = 0;
 	for(int i = 0; i < filas; i++){
 		for(int j = 0; j < columnas; j++){
-			output << matriz[i][j] << "  ";
+			output << matriz[i][j] << " ";
+			contador_renglon++;
+			if (contador_renglon == NUMEROS_RENGLON_SALIDA){
+				output << std::endl;
+				contador_renglon = 0;
+			}
 		}
 		output << std::endl;
 	}
-
+		   
 	//ver si se puede mejorar
 	//ver tema espacios
 }
