@@ -16,13 +16,13 @@
 #define PGM_COMENTARIO '#'
 #define PGM_INDICADOR "P2"
 #define MENSAJE "Hecho con el programa del grupo Charrut Cabeza"
-
+/*
 #define CONV_RAD_DEG 57.2957795131
 #ifndef PI
 #define PI 3.14159265358979323846
 #endif
-
-enum funcion { z = 0,  exponencial};
+*/
+enum FUNCION { z = 0,  exponencial}; // Agregar cuadrado
 
 class Imagen{
 private:
@@ -32,11 +32,16 @@ private:
   std::vector<std::vector<int> > matriz = std::vector<std::vector<int> >(FILAS_DEF);
   void transf_z(const Imagen & imagen_1);
   void transf_exp(const Imagen & imagen_1);
+  //void transf_cuadrado(const Imagen & imagen_1); futura implementacion
+
 public:
   Imagen();
   Imagen(int fil, int col, int intens, int value); //hacer lo que comente por wpp
   Imagen(std::ifstream&);
-  void transformar(const Imagen & imagen_1, funcion f);
+  //Imagen &operator=(const Imagen &);
+  //Imagen &operator==(const Imagen &);  // Para que queres esta??, porque no usar la de abajo.
+  bool igual_tamano(const Imagen & referencia);
+  void transformar(const Imagen & imagen_1, FUNCION f);
   ~Imagen();
   int getFilas() const;//cambiar filas y columnas para mi
   int getColumnas() const;
