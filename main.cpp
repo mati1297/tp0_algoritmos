@@ -9,18 +9,18 @@ using namespace std;
 
 int main(int argc, char * const argv[]) {
 
-	cmdline cmdl(options);
-	cmdl.parse(argc, argv);
+	//cmdline cmdl(options);
+	//cmdl.parse(argc, argv);
 
 	ifstream file;
 	ofstream f_salida;
-	file.open("hola_1.pgm");
+	file.open("imagenes_prueba/baboon.pgm");
 	Imagen entrada(file);
-	Imagen salida(entrada.getFilas(), entrada.getColumnas(), entrada.getIntensidad(), 0);
-	salida.transformar(entrada, exponencial);
+	file.close();
+	Imagen salida = Imagen();
+	salida = entrada.transformar(exponencial);
 	f_salida.open("salida.pgm");
 	salida.savePGM(f_salida);
-	file.close();
 	f_salida.close();
 	// if (error) -> return 1;
 	return 0;

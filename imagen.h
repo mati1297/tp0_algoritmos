@@ -30,19 +30,19 @@ private:
   int columnas;
   int intensidad; //poner algo como intensidad maxima
   std::vector<std::vector<int> > matriz = std::vector<std::vector<int> >(FILAS_DEF);
-  void transf_z(const Imagen & imagen_1);
-  void transf_exp(const Imagen & imagen_1);
+  Imagen transf_z() const;
+  Imagen transf_exp() const;
   //void transf_cuadrado(const Imagen & imagen_1); futura implementacion
 
 public:
   Imagen();
   Imagen(int fil, int col, int intens, int value); //hacer lo que comente por wpp
   Imagen(std::ifstream&);
-  //Imagen &operator=(const Imagen &);
-  //Imagen &operator==(const Imagen &);  // Para que queres esta??, porque no usar la de abajo.
+  Imagen& operator=(const Imagen&);
+  bool operator==(const Imagen&) const;  // Para que queres esta??, porque no usar la de abajo.
   bool igual_tamano(const Imagen & referencia);
-  bool distintas_imagen(const Imagen & referencia);
-  void transformar(const Imagen & imagen_1, FUNCION f);
+  bool operator!=(const Imagen & right) const;
+  Imagen transformar(FUNCION) const;
   ~Imagen();
   int getFilas() const;//cambiar filas y columnas para mi
   int getColumnas() const;

@@ -12,6 +12,7 @@ Imagen::Imagen(){
 	columnas = COLUMNAS_DEF;
 	filas = FILAS_DEF;
 	intensidad = INTENSIDAD_DEF;
+	matriz.resize(FILAS_DEF);
 	for(int i = 0; i < filas; i++)
 		matriz[i].resize(columnas, VALOR_DEF);
 }
@@ -167,6 +168,7 @@ int Imagen::getIntensidad() const{
   return intensidad;
 }
 
+// Creo que esto no hace falta
 bool Imagen::igual_tamano(const Imagen & referencia) {
 	if ((referencia.filas) == filas) {
 		if ((referencia.columnas) == columnas) {
@@ -176,63 +178,76 @@ bool Imagen::igual_tamano(const Imagen & referencia) {
 	return false;
 }
 // Devuelve true si las matrices de las imagenes son distintas y no NULL
-bool Imagen::distintas_imagen (const Imagen & referencia) {
-	if (referencia.matriz != matriz) {
-		//if ((matriz != NULL ) && (referencia.matriz != NULL)){
-			return true;
-		//}
-	}
+bool Imagen::operator!=(const Imagen & right) const{
+	if(right.matriz != matriz || right.intensidad != intensidad)
+		return true;
 	return false;
 }
 
-/*
-Imagen & Imagen::operator=(const Imagen &) {
-	// Para que queres este operador Mati???
+bool Imagen::operator==(const Imagen& right) const{
+	if(right.matriz == matriz && right.intensidad == intensidad)
+		return true;
+	return false;
 }
-*/
-void Imagen::transformar(const Imagen & imagen_1,  FUNCION f){
-	// Verificar que no sean ptr nulos o iguales, esta bien asi == ?
-	if (distintas_imagen(imagen_1) && igual_tamano(imagen_1)) {
-		switch(f) {
-			case z:
-				transf_z(imagen_1);
-				break;
-			case exponencial:
-				transf_exp(imagen_1);
-				break;
-			/*case cuadrado:
-				transf_cuadrado(imagen_1);
-				break;*/
-		}
+
+
+Imagen& Imagen::operator=(const Imagen& right){
+	if(*this == right)
+		return *this;
+	filas = right.filas;
+	columnas = right.columnas;
+	intensidad = right.intensidad;
+	matriz = right.matriz;
+	return *this;
+}
+
+Imagen Imagen::transformar(FUNCION f) const{
+	// Verificar que no sean ptr nulos o iguales, esta bien asi == ? No hace falta!!
+	switch(f) {
+		case z:
+			return this->transf_z();
+			break;
+		case exponencial:
+			return this->transf_exp();
+			break;
+		/*case cuadrado:
+			transf_cuadrado(imagen_1);
+			break;*/
+		default:
+		//error
+		//break
+			return *this;
 	}
 }
 
 
-void Imagen::transf_z(const Imagen & imagen_1){
-  for (int i = 0; i < imagen_1.filas; i++) {
-    for (int j = 0; j < imagen_1.columnas; j++)
-        matriz[i][j] = imagen_1.matriz[i][j];
-  }
+Imagen Imagen::transf_z() const{
+	Imagen aux = *this;
+	return aux;
 }
 
-void Imagen::transf_exp(const Imagen & imagen_1){
+//arreglar los tabs de esta funcion
+Imagen Imagen::transf_exp() const{
+	Imagen aux = Imagen(filas, columnas, intensidad, VALOR_DEF);
   double x_0, y_0, x, y;
-	x_0 = imagen_1.columnas/2;
-  y_0 = imagen_1.filas/2;
+  x_0 = columnas/2;
+  y_0 = filas/2;
 
-  for (int i = 0; i < imagen_1.filas; i++) {
-    for (int j = 0; j < imagen_1.columnas; j++) {
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
 
 				x = x_0 * (1 + (exp(j/x_0-1)*cos(1-i/y_0)));
 				y = y_0 *  (1 - (exp(j/x_0-1)*sin(1-i/y_0)));
 
-				if ((x < 0) || (x > imagen_1.columnas) || (y < 0) || (y > imagen_1.filas)) {
-          matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
+				if ((x < 0) || (x > columnas) || (y < 0) || (y > filas)) {
+          aux.matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
         } else {
-					matriz[i][j] = imagen_1.matriz[y][x];
+					aux.matriz[i][j] = matriz[y][x];
 				}
     }
   }
+  
+  return aux;
 }
 /*
 void Imagen::transf_cuadrado(const Imagen & imagen_1){
