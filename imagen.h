@@ -37,7 +37,7 @@ private:
 public:
   Imagen();
   Imagen(int fil, int col, int intens, int value); //hacer lo que comente por wpp
-  Imagen(std::ifstream&);
+  Imagen(std::istream&);
   Imagen& operator=(const Imagen&);
   bool operator==(const Imagen&) const;  // Para que queres esta??, porque no usar la de abajo.
   bool igual_tamano(const Imagen & referencia);
@@ -48,8 +48,8 @@ public:
   int getColumnas() const;
   int getIntensidad() const;
 
-  void readPGM(std::ifstream&);
-  void savePGM(std::ofstream&);
+  void readPGM(std::istream&);
+  void savePGM(std::ostream&);
 
 };
 

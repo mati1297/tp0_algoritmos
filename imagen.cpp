@@ -28,12 +28,12 @@ Imagen::Imagen(int fil, int col, int intens, int value){
 }
 
 
-Imagen::Imagen(std::ifstream& input){
+Imagen::Imagen(std::istream& input){
 	this->readPGM(input);
 }
 
 
-void Imagen::readPGM(std::ifstream& input){
+void Imagen::readPGM(std::istream& input){
 	std::string line;
 	int pos_space;
 
@@ -115,7 +115,7 @@ std::string quitarCharInicio(std::string input, char caracter){
 	return input.substr(i);
 }
 
-void Imagen::savePGM(std::ofstream& output){
+void Imagen::savePGM(std::ostream& output){
 	output << PGM_INDICADOR << std::endl
 		   << PGM_COMENTARIO << MENSAJE << std::endl
 		   << columnas << ' ' << filas << std::endl
