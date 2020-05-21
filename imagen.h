@@ -16,13 +16,17 @@
 #define PGM_COMENTARIO '#'
 #define PGM_INDICADOR "P2"
 #define MENSAJE "Hecho con el programa del grupo Charrut Cabeza"
+
+
+#define ERROR_PGM_INDICADOR "Error"
+
 /*
 #define CONV_RAD_DEG 57.2957795131
 #ifndef PI
 #define PI 3.14159265358979323846
 #endif
 */
-enum FUNCION { z = 0,  exponencial}; // Agregar cuadrado
+enum funcion_t { Z = 0,  EXPONENCIAL}; // Agregar cuadrado
 
 class Imagen{
 private:
@@ -40,9 +44,9 @@ public:
   Imagen(std::istream&);
   Imagen& operator=(const Imagen&);
   bool operator==(const Imagen&) const;  // Para que queres esta??, porque no usar la de abajo.
-  bool igual_tamano(const Imagen & referencia);
-  bool operator!=(const Imagen & right) const;
-  Imagen transformar(FUNCION) const;
+  bool igual_tamano(const Imagen&);
+  bool operator!=(const Imagen&) const;
+  Imagen transformar(funcion_t) const;
   ~Imagen();
   int getFilas() const;//cambiar filas y columnas para mi
   int getColumnas() const;
@@ -50,6 +54,7 @@ public:
 
   void readPGM(std::istream&);
   void savePGM(std::ostream&);
+
 
 };
 

@@ -36,16 +36,17 @@ Imagen::Imagen(std::istream& input){
 void Imagen::readPGM(std::istream& input){
 	std::string line;
 	int pos_space;
-
+	
+	
 	while(getline(input, line)){
-		if(line[0] == PGM_COMENTARIO)
+		if(quitarCharInicio(line, ' ')[0] == PGM_COMENTARIO)
 			continue;
-		if(!line.compare(PGM_INDICADOR))
-			//RETURN ERROR
-
+		if(line.compare(PGM_INDICADOR)){
+			std::cout<<ERROR_PGM_INDICADOR<<std::endl;
+			exit(EXIT_FAILURE);
+		}
 		break;
 	}
-
 
 
 	while(getline(input, line)){
@@ -201,13 +202,13 @@ Imagen& Imagen::operator=(const Imagen& right){
 	return *this;
 }
 
-Imagen Imagen::transformar(FUNCION f) const{
+Imagen Imagen::transformar(funcion_t f) const{
 	// Verificar que no sean ptr nulos o iguales, esta bien asi == ? No hace falta!!
 	switch(f) {
-		case z:
+		case Z:
 			return this->transf_z();
 			break;
-		case exponencial:
+		case EXPONENCIAL:
 			return this->transf_exp();
 			break;
 		/*case cuadrado:
