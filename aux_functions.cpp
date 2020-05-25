@@ -1,7 +1,8 @@
 #include <iostream>
-#include "string.h"
-#include "aux_functions.h"
+#include <string>
 #include <ctype.h>
+#include "aux_functions.h"
+
 
 using namespace std;
 
