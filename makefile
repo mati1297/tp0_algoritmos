@@ -1,4 +1,4 @@
-CC = g++
+CC = g++-7
 CFLAGS  = -pedantic -Wall
 
 # typing 'make' will invoke the first target entry in the file 
