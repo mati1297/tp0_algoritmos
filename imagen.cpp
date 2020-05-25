@@ -227,7 +227,6 @@ void Imagen::readPGM(std::istream& input){
 		std::cout << MSJ_ERROR_COLUMNAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
 	try{
 		filas = std::stoi(line.substr(pos_space + 1));
 	}
@@ -235,7 +234,10 @@ void Imagen::readPGM(std::istream& input){
 		std::cout << MSJ_ERROR_FILAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
-
+	if(filas <= 0 || columnas <= 0){
+		std::cout << MSJ_ERROR_TAMANO_INVALIDO << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	try{
 		matriz.resize(filas);
 	}
@@ -269,7 +271,10 @@ void Imagen::readPGM(std::istream& input){
 		exit(EXIT_FAILURE);
 	}
 
-
+	if(intensidad <= 0){
+		std::cout << MSJ_ERROR_INTENSIDAD_INVALIDA << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
 	while(getline(input, line))
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)

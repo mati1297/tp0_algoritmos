@@ -12,7 +12,7 @@
 #define ARCHIVO_HELP "help.txt"
 
 #define CMD_Z "z"
-#define CMD_EXPONENCIAL "exp"
+#define CMD_EXPONENCIAL "exp(z)"
 #define CMD_CUADRADO "cuadrado"
 
 #define OPTIONS_CANT 4

@@ -29,6 +29,8 @@
 #define MSJ_ERROR_MEMORIA "Error al cambiar el tamaño de la matriz de la imagen"
 #define MSJ_ERROR_INTENSIDAD_MAX "Error al leer lo pixeles, la intensidad supera a la declarada"
 #define MSJ_ERROR_INTENSIDAD_MIN "Error al leer los pixeles, la intensidad es menor que 0"
+#define MSJ_ERROR_INTENSIDAD_INVALIDA "Error en intensidad máxima, debe ser mayor que 0"
+#define MSJ_ERROR_TAMANO_INVALIDO "Error en el tamaño, uno de los ejes es 0 o menor"
 
 /* Clase Imagen
  * Clase que reprensenta a una imagen PGM. Con sus atributos:
