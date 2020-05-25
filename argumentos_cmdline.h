@@ -15,10 +15,13 @@
 #define CMD_EXPONENCIAL "exp"
 #define CMD_CUADRADO "cuadrado"
 
+#define OPTIONS_CANT 4
+
 
 using namespace std;
 
 funcion_t leer_argumentos(int argc, char * const [], istream*&, ostream*&, ifstream*&, ofstream*&);
+void cargar_vector_argumentos(option_t*);
 
 
 #endif

@@ -7,15 +7,8 @@
 using namespace std;
 
 
-string quitarCharInicio(string input, char caracter){
-	int i;
-	for(i = 0; i < int(input.length()); i++){
-		if(input[i] != caracter)
-			break;
-	}
-	return input.substr(i);
-}
-
+/* Se lee una cadena y se remueven todos los espacios del principio,
+ * se devuelve la nueva cadena. */
 string quitarEspaciosInicio(string input){
 	int i;
 	for(i = 0; i < int(input.length()); i++){
@@ -25,6 +18,8 @@ string quitarEspaciosInicio(string input){
 	return input.substr(i);
 }
 
+/* Se lee una cadena y se devuelve la posicion del primer espacio de
+ * la cadena. */
 int encontrarEspacio(string input){
 	int i;
 	for(i = 0; i < int(input.length()); i++){

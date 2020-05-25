@@ -14,16 +14,6 @@ static void opt_funcion(string const &);
 static void opt_help(string const &);
 
 
-
-/* Opciones de parametros*/
-static option_t options[] = {
-	{1, "i", "input", "-", opt_input, OPT_DEFAULT},
-	{1, "o", "output", "-", opt_output, OPT_DEFAULT},
-	{1, "f", "funcion", "-", opt_funcion, OPT_DEFAULT},
-	{0, "h", "help", NULL, opt_help, OPT_DEFAULT},
-};
-
-
 /* Variables globales de parámetros */
 static istream *input = 0;
 static ostream *output = 0;
@@ -36,6 +26,8 @@ static funcion_t funcion;
  * distintas funciones que leen e interpretan los argumentos y luego los devuelve
  * por las variables pasadas. Devuelve la funcion a realizar elegida por nombre.*/
 funcion_t leer_argumentos(int argc, char * const argv[], istream*& input_, ostream*& output_, ifstream*& input_file_, ofstream*& output_file_){
+	static option_t options[OPTIONS_CANT];
+	cargar_vector_argumentos(options);
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
 	
@@ -46,6 +38,13 @@ funcion_t leer_argumentos(int argc, char * const argv[], istream*& input_, ostre
 	
 	return funcion;
 } 
+
+void cargar_vector_argumentos(option_t* options){
+	options[0] = {1, "i", "input", "-", opt_input, OPT_DEFAULT};
+	options[1] = {1, "o", "output", "-", opt_output, OPT_DEFAULT};
+	options[2] = {1, "f", "funcion", "-", opt_funcion, OPT_DEFAULT};
+	options[3] = {0, "h", "help", NULL, opt_help, OPT_DEFAULT};
+}
 
 
 
