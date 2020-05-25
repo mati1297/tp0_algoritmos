@@ -49,6 +49,14 @@ Imagen::Imagen(int filas_, int columnas_, int intensidad_, int valor_){
 	}
 }
 
+/* Constructor por copia */
+Imagen::Imagen(const Imagen& original){
+	filas = original.filas;
+	columnas = original.columnas;
+	intensidad = original.intensidad;
+	matriz = original.matriz;
+}
+
 /*Destructor del objeto imagen*/
 Imagen::~Imagen(){
 }

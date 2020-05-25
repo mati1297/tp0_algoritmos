@@ -44,14 +44,14 @@ private:
 	int columnas;
 	int intensidad;
 	std::vector<std::vector<int> > matriz = std::vector<std::vector<int> >(FILAS_DEF);
-  
-	Imagen transf_z() const;
+  	Imagen transf_z() const;
 	Imagen transf_exp() const;
 	Imagen transf_cuadrado() const;
 
 public:
 	Imagen();
 	Imagen(int, int, int, int);
+	Imagen(const Imagen&);
 	~Imagen();
 	Imagen& operator=(const Imagen&);
 	bool operator==(const Imagen&) const; 
