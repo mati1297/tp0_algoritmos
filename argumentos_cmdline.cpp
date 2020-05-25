@@ -6,14 +6,16 @@
 using namespace std;
 
 
-//Declaro acá ya que sino el main incluye el .h y tira warning porque
-//porque están declaradas pero no definidas.
+/* Declaro las funciones aca ya que sino el main las incluye y
+ * como no las encuentra declaradas da un warning */
 static void opt_input(string const &);
 static void opt_output(string const &);
 static void opt_funcion(string const &);
 static void opt_help(string const &);
 
 
+
+/* Opciones de parametros*/
 static option_t options[] = {
 	{1, "i", "input", "-", opt_input, OPT_DEFAULT},
 	{1, "o", "output", "-", opt_output, OPT_DEFAULT},
@@ -22,7 +24,7 @@ static option_t options[] = {
 };
 
 
-//Variables globales
+/* Variables globales de parámetros */
 static istream *input = 0;
 static ostream *output = 0;
 static ifstream input_file;
@@ -30,20 +32,17 @@ static ofstream output_file;
 static funcion_t funcion;
 
 
-
-
-
+/* Funcion a la que se le pasan variables con los argumentos. Llama a las
+ * distintas funciones que leen e interpretan los argumentos y luego los devuelve
+ * por las variables pasadas. Devuelve la funcion a realizar elegida por nombre.*/
 funcion_t leer_argumentos(int argc, char * const argv[], istream*& input_, ostream*& output_, ifstream*& input_file_, ofstream*& output_file_){
 	cmdline cmdl(options);
 	cmdl.parse(argc, argv);
-	
-	
 	
 	input_ = input;
 	output_ = output;
 	input_file_ = &input_file;
 	output_file_ = &output_file;
-	
 	
 	return funcion;
 } 
@@ -58,7 +57,7 @@ static void opt_input(string const & arg) {
 		input = &input_file;
 	}
 	if(!input->good()){
-		cout << "Error al leer" << endl;
+		cout << MSJ_ERROR_LECTURA_ENTRADA << endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -70,7 +69,7 @@ static void opt_output(string const & arg) {
 		output = &output_file;
 	}
 	if(!output->good()){
-		cout << "Error al leer" << endl;
+		cout << MSJ_ERROR_LECTURA_SALIDA << endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -79,12 +78,21 @@ static void opt_funcion(string const & arg) {
 		funcion = Z;
 	else if(arg == "exp")
 		funcion = EXPONENCIAL;
+	else if(arg == "cuad")
+		funcion = CUADRADO;
 	else{
-		cout << "Error funcion" << endl;
+		cout << MSJ_ERROR_FUNCION << endl;
 		exit(EXIT_FAILURE);
 	}
 }
 static void opt_help(string const & arg) {
-  cout << "cmdline -f funcion [-i file] [-o file]" << endl;
-  exit(EXIT_SUCCESS);
+	string line;
+	ifstream archivo_help;
+	archivo_help.open(ARCHIVO_HELP);
+	if(!archivo_help.good())
+		cout << MSJ_ERROR_HELP << endl;
+	while(getline(archivo_help, line))
+		cout << line << endl;
+	archivo_help.close();
+	exit(EXIT_SUCCESS);
 }
