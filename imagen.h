@@ -62,7 +62,7 @@ public:
 	int getColumnas() const;
 	int getIntensidad() const;
 	Imagen transformar(funcion_t) const;
-	void readPGM(std::istream&);
+	int readPGM(std::istream&);
 	void savePGM(std::ostream&);
 
 

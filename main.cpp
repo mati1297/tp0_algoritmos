@@ -23,7 +23,13 @@ int main(int argc, char * const argv[]) {
 	
 	
 	Imagen imagen_input = Imagen(); //Se crea una nueva imagen
-	imagen_input.readPGM(*input_); //Se carga con la lectura del archivo PGM
+	if(imagen_input.readPGM(*input_)){//Se carga con la lectura del archivo PGM
+		input_file_->close();
+		output_file_->close();
+		exit(EXIT_FAILURE);
+	}
+	
+	
 	/* Se transforma la imagen de entrada y se guarda en una nueva imagen
 	 * de salida (constructor por copia) */
 	Imagen imagen_output = imagen_input.transformar(funcion);
