@@ -297,7 +297,15 @@ void Imagen::readPGM(std::istream& input){
 				{
 					std::cout << MSJ_ERROR_PIXELES << std::endl;
 					exit(EXIT_FAILURE);
-				};
+				}
+				if(matriz[i][j] > intensidad){
+					std::cout << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
+					exit(EXIT_FAILURE);
+				}
+				if(matriz[i][j] < 0){
+						std::cout << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
+						exit(EXIT_FAILURE);
+				}
 				line = line.substr(pos_space);
 
 			}
@@ -315,6 +323,14 @@ void Imagen::readPGM(std::istream& input){
 					catch(std::invalid_argument &err)
 					{
 						std::cout << MSJ_ERROR_PIXELES << std::endl;
+						exit(EXIT_FAILURE);
+					}
+					if(matriz[i][j] > intensidad){
+						std::cout << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
+						exit(EXIT_FAILURE);
+					}
+					if(matriz[i][j] < 0){
+						std::cout << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
 						exit(EXIT_FAILURE);
 					}
 				}
