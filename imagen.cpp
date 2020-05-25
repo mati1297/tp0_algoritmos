@@ -102,7 +102,7 @@ int Imagen::getIntensidad() const{
 /* Funcion que transforma la imagen. Elige que transformacion
  * realizar a partir de la variable de tipo enumerativo funcion_t
  * que transformacion realizar. Ninguna de las funciones transforma
- * la imagen de la que la funcion es metodo, sino que devuelve la 
+ * la imagen de la que la funcion es metodo, sino que devuelve la
  * imagen transformada para ser guardada en una nueva o en ella
  * misma.*/
 Imagen Imagen::transformar(funcion_t f) const{
@@ -137,7 +137,7 @@ Imagen Imagen::transf_exp() const{
 	double x_0, y_0, x, y;
 	x_0 = columnas/2;
 	y_0 = filas/2;
-	
+
 	for (int i = 0; i < filas; i++) {
 		for (int j = 0; j < columnas; j++) {
 				x = x_0 * (1 + (exp(j/x_0-1)*cos(1-i/y_0)));
@@ -145,13 +145,13 @@ Imagen Imagen::transf_exp() const{
 
 				if ((x < 0) || (x > columnas) || (y < 0) || (y > filas)) {
 					aux.matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
-        } 
-        
-        else 
+        }
+
+        else
 					aux.matriz[i][j] = matriz[y][x];
 		}
 	}
-  
+
 	return aux;
 }
 
@@ -166,11 +166,11 @@ Imagen Imagen::transf_cuadrado() const{
 		for (int j = 0; j < columnas; j++) {
 			x = x_0 * (1 + ((j/x_0-1)*(j/x_0-1)-(1-i/y_0)*(1-i/y_0)));
  			y = y_0 *  (1 - (2*(j/x_0-1)*(1-i/y_0)));
-			
-			if ((x < 0) || (x > columnas) || (y < 0) || (y > filas)) 
+
+			if ((x < 0) || (x >= columnas) || (y < 0) || (y >= filas))
 				aux.matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
-			else
-				aux.matriz[i][j] = matriz[y][x];
+			else {
+				aux.matriz[i][j] = this->matriz[y][x];}
 		}
 	}
 
@@ -187,36 +187,36 @@ Imagen Imagen::transf_cuadrado() const{
 void Imagen::readPGM(std::istream& input){
 	std::string line;
 	int pos_space;
-	
+
 	/*Variable que verifica no entrar en un bucle infinito (ver parte
 	 * de lectura de pixeles de la imagen)*/
 	int j_inf = -1;
-	
+
 	/*Verificación de que el archivo es tiene el header
-	 * "P2", que es el formato que se desea leer. 
+	 * "P2", que es el formato que se desea leer.
 	 * Antes de cada lectura, se quitan todos los espacios del inicio
-	 * de la linea y se verifican que la linea sea un comentario. 
+	 * de la linea y se verifican que la linea sea un comentario.
 	 * Todas las lineas que se detectan comentarios son descartadas.*/
 	while(getline(input, line))
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
 			break;
-			
+
 	if(line != PGM_INDICADOR){
 		std::cout<<MSJ_ERROR_PGM_INDICADOR<<std::endl;
 		exit(EXIT_FAILURE);
 	}
-	
 
 
-	
+
+
 	/* Se leen datos de cantidad de filas y columnas (ambos en
-	 * una misma linea en el archivo .pgm), luego se cambia el 
+	 * una misma linea en el archivo .pgm), luego se cambia el
 	 * tamaño de la matriz del objeto Imagen para poder alojar
 	 * la imagen correctamente.*/
 	while(getline(input, line))
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
 			break;
-			
+
 	/*Solo se aceptan espacios comunes entre los parametros,
 	 * no '\t', etc.*/
 	pos_space = line.find(SPACE);
@@ -227,7 +227,7 @@ void Imagen::readPGM(std::istream& input){
 		std::cout << MSJ_ERROR_COLUMNAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	
+
 	try{
 		filas = std::stoi(line.substr(pos_space + 1));
 	}
@@ -235,7 +235,7 @@ void Imagen::readPGM(std::istream& input){
 		std::cout << MSJ_ERROR_FILAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	
+
 	try{
 		matriz.resize(filas);
 	}
@@ -260,7 +260,7 @@ void Imagen::readPGM(std::istream& input){
 	while(getline(input, line))
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
 			break;
-	
+
 	try{
 		intensidad = stoi(line);
 	}
@@ -268,7 +268,7 @@ void Imagen::readPGM(std::istream& input){
 		std::cout << MSJ_ERROR_INTENSIDAD << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	
+
 
 
 	while(getline(input, line))
@@ -287,9 +287,9 @@ void Imagen::readPGM(std::istream& input){
 		for(int j = 0; j < columnas; j++){
 			line = quitarEspaciosInicio(line); //Se quitan los espacios del principio de la linea.
 			pos_space = line.find(' '); //Se busca el primer espacio, esto indica el fin del numero que se quiera leer.
-			
+
 			/*Si existe un espacio mas adelante del numero se lee y luego se quita el numero leido*/
-			if(pos_space!=-1){ 
+			if(pos_space!=-1){
 				try{
 					matriz[i][j] = std::stoi(line.substr(0, pos_space));
 				}
@@ -299,7 +299,7 @@ void Imagen::readPGM(std::istream& input){
 					exit(EXIT_FAILURE);
 				};
 				line = line.substr(pos_space);
-				
+
 			}
 			/*Si no hay un espacio mas adelante quiere decir que la linea termina inmediatamente
 			 * o queda solo un numero por leer. Si es lo primero se retrocede j, ya que esta
@@ -319,19 +319,19 @@ void Imagen::readPGM(std::istream& input){
 					}
 				}
 				else{
-					
+
 					if(j_inf == j){
 						std::cout << MSJ_ERROR_TAMANO << std::endl;
 						exit(EXIT_FAILURE);
 					}
-					
+
 					j_inf = j;
 					j--;
-					
-					
+
+
 				}
 				getline(input, line);
-				
+
 			}
 		}
 	}
