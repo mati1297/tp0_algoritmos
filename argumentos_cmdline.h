@@ -11,6 +11,10 @@
 #define MSJ_ERROR_HELP "Archivo help.txt no encontrado"
 #define ARCHIVO_HELP "help.txt"
 
+#define CMD_Z "z"
+#define CMD_EXPONENCIAL "exp"
+#define CMD_CUADRADO "cuadrado"
+
 
 using namespace std;
 

@@ -74,11 +74,11 @@ static void opt_output(string const & arg) {
 	}
 }
 static void opt_funcion(string const & arg) {
-	if(arg == "-" || arg == "z")
+	if(arg == "-" || arg == CMD_Z)
 		funcion = Z;
-	else if(arg == "exp")
+	else if(arg == CMD_EXPONENCIAL)
 		funcion = EXPONENCIAL;
-	else if(arg == "cuad")
+	else if(arg == CMD_CUADRADO)
 		funcion = CUADRADO;
 	else{
 		cout << MSJ_ERROR_FUNCION << endl;
