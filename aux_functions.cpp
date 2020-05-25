@@ -24,3 +24,12 @@ string quitarEspaciosInicio(string input){
 	}
 	return input.substr(i);
 }
+
+int encontrarEspacio(string input){
+	int i;
+	for(i = 0; i < int(input.length()); i++){
+		if(isspace(input[i]))
+			return i;
+	}
+	return -1;
+}

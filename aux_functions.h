@@ -6,4 +6,5 @@ using namespace std;
 
 string quitarCharInicio(string, char);
 string quitarEspaciosInicio(string);
+int encontrarEspacio(string);
 

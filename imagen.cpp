@@ -219,7 +219,7 @@ void Imagen::readPGM(std::istream& input){
 
 	/*Solo se aceptan espacios comunes entre los parametros,
 	 * no '\t', etc.*/
-	pos_space = line.find(SPACE);
+	pos_space = encontrarEspacio(line);
 	try{
 		columnas = std::stoi(line.substr(0, pos_space));
 	}
@@ -286,7 +286,7 @@ void Imagen::readPGM(std::istream& input){
 		j_inf = -1;
 		for(int j = 0; j < columnas; j++){
 			line = quitarEspaciosInicio(line); //Se quitan los espacios del principio de la linea.
-			pos_space = line.find(' '); //Se busca el primer espacio, esto indica el fin del numero que se quiera leer.
+			pos_space = encontrarEspacio(line); //Se busca el primer espacio, esto indica el fin del numero que se quiera leer.
 
 			/*Si existe un espacio mas adelante del numero se lee y luego se quita el numero leido*/
 			if(pos_space!=-1){
