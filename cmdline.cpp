@@ -201,23 +201,6 @@ cmdline::do_short_opt(const char *opt, const char *arg)
 	     << endl;
 	exit(1);
 
-	// MANUEL ACA, da error con esto, lo comento
-	// Algunos compiladores se quejan con funciones questatic option_t options[] = {
-	// {1, "i", "input", "-", opt_input, OPT_DEFAULT},
-	// {1, "o", "output", "-", opt_output, OPT_DEFAULT},
-	// {1, "f", "funcion", NULL, opt_funcion, OPT_MANDATORY},static option_t options[] = {
-	// {1, "i", "input", "-", opt_input, OPT_DEFAULT},
-	// {1, "o", "output", "-", opt_output, OPT_DEFAULT},
-	// {1, "f", "funcion", NULL, opt_funcion, OPT_MANDATORY},
-	// {0, "h", "help", NULL, opt_help, OPT_DEFAULT},
-// };
 
-	// {0, "h", "help", NULL, opt_help, OPT_DEFAULT},
-// };
-
-
-	// l�gicamente no pueden terminar, y que no devuelven
-	// un valor en esta �ltima parte.
-	//
 	return -1;
 }

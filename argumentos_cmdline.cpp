@@ -56,7 +56,7 @@ static void opt_input(string const & arg) {
 		input = &input_file;
 	}
 	if(!input->good()){
-		cout << MSJ_ERROR_LECTURA_ENTRADA << endl;
+		cerr << MSJ_ERROR_LECTURA_ENTRADA << endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -68,7 +68,7 @@ static void opt_output(string const & arg) {
 		output = &output_file;
 	}
 	if(!output->good()){
-		cout << MSJ_ERROR_LECTURA_SALIDA << endl;
+		cerr << MSJ_ERROR_LECTURA_SALIDA << endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -80,7 +80,7 @@ static void opt_funcion(string const & arg) {
 	else if(arg == CMD_CUADRADO)
 		funcion = CUADRADO;
 	else{
-		cout << MSJ_ERROR_FUNCION << endl;
+		cerr << MSJ_ERROR_FUNCION << endl;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -89,7 +89,7 @@ static void opt_help(string const & arg) {
 	ifstream archivo_help;
 	archivo_help.open(ARCHIVO_HELP);
 	if(!archivo_help.good())
-		cout << MSJ_ERROR_HELP << endl;
+		cerr << MSJ_ERROR_HELP << endl;
 	while(getline(archivo_help, line))
 		cout << line << endl;
 	archivo_help.close();

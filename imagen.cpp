@@ -202,7 +202,7 @@ void Imagen::readPGM(std::istream& input){
 			break;
 
 	if(line != PGM_INDICADOR){
-		std::cout<<MSJ_ERROR_PGM_INDICADOR<<std::endl;
+		std::cerr<<MSJ_ERROR_PGM_INDICADOR<<std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -224,25 +224,25 @@ void Imagen::readPGM(std::istream& input){
 		columnas = std::stoi(line.substr(0, pos_space));
 	}
 	catch(std::invalid_argument &err){
-		std::cout << MSJ_ERROR_COLUMNAS << std::endl;
+		std::cerr << MSJ_ERROR_COLUMNAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	try{
 		filas = std::stoi(line.substr(pos_space + 1));
 	}
 	catch(std::invalid_argument &err){
-		std::cout << MSJ_ERROR_FILAS << std::endl;
+		std::cerr << MSJ_ERROR_FILAS << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	if(filas <= 0 || columnas <= 0){
-		std::cout << MSJ_ERROR_TAMANO_INVALIDO << std::endl;
+		std::cerr << MSJ_ERROR_TAMANO_INVALIDO << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	try{
 		matriz.resize(filas);
 	}
 	catch(std::bad_alloc &err){
-		std::cout << MSJ_ERROR_MEMORIA << std::endl;
+		std::cerr << MSJ_ERROR_MEMORIA << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	for(int i = 0; i < filas; i++){
@@ -250,7 +250,7 @@ void Imagen::readPGM(std::istream& input){
 			matriz[i].resize(columnas);
 		}
 		catch(std::bad_alloc &err){
-			std::cout << MSJ_ERROR_MEMORIA << std::endl;
+			std::cerr << MSJ_ERROR_MEMORIA << std::endl;
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -267,12 +267,12 @@ void Imagen::readPGM(std::istream& input){
 		intensidad = stoi(line);
 	}
 	catch(std::invalid_argument &err){
-		std::cout << MSJ_ERROR_INTENSIDAD << std::endl;
+		std::cerr << MSJ_ERROR_INTENSIDAD << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	if(intensidad <= 0){
-		std::cout << MSJ_ERROR_INTENSIDAD_INVALIDA << std::endl;
+		std::cerr << MSJ_ERROR_INTENSIDAD_INVALIDA << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
@@ -300,15 +300,15 @@ void Imagen::readPGM(std::istream& input){
 				}
 				catch(std::invalid_argument &err)
 				{
-					std::cout << MSJ_ERROR_PIXELES << std::endl;
+					std::cerr << MSJ_ERROR_PIXELES << std::endl;
 					exit(EXIT_FAILURE);
 				}
 				if(matriz[i][j] > intensidad){
-					std::cout << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
+					std::cerr << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
 					exit(EXIT_FAILURE);
 				}
 				if(matriz[i][j] < 0){
-						std::cout << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
+						std::cerr << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
 						exit(EXIT_FAILURE);
 				}
 				line = line.substr(pos_space);
@@ -327,22 +327,22 @@ void Imagen::readPGM(std::istream& input){
 					}
 					catch(std::invalid_argument &err)
 					{
-						std::cout << MSJ_ERROR_PIXELES << std::endl;
+						std::cerr << MSJ_ERROR_PIXELES << std::endl;
 						exit(EXIT_FAILURE);
 					}
 					if(matriz[i][j] > intensidad){
-						std::cout << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
+						std::cerr << MSJ_ERROR_INTENSIDAD_MAX << std::endl;
 						exit(EXIT_FAILURE);
 					}
 					if(matriz[i][j] < 0){
-						std::cout << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
+						std::cerr << MSJ_ERROR_INTENSIDAD_MIN << std::endl;
 						exit(EXIT_FAILURE);
 					}
 				}
 				else{
 
 					if(j_inf == j){
-						std::cout << MSJ_ERROR_TAMANO << std::endl;
+						std::cerr << MSJ_ERROR_TAMANO << std::endl;
 						exit(EXIT_FAILURE);
 					}
 
