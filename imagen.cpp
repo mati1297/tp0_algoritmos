@@ -143,7 +143,7 @@ Imagen Imagen::transf_exp() const{
 				x = x_0 * (1 + (exp(j/x_0-1)*cos(1-i/y_0)));
 				y = y_0 *  (1 - (exp(j/x_0-1)*sin(1-i/y_0)));
 
-				if ((x < 0) || (x > columnas) || (y < 0) || (y > filas)) {
+				if ((x < 0) || (x >= columnas) || (y < 0) || (y >= filas)) {
 					aux.matriz[i][j] = 0;  // Si cae fuera del rango la pongo en 0 (negro.)
         }
 
