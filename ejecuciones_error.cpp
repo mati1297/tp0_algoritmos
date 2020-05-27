@@ -5,7 +5,7 @@
 using namespace std;
 
 
-/*Programa que se encarga de probar las ejecuciones que deberian dar error,
+/* Programa que se encarga de probar las ejecuciones que deberian dar error,
  * se le pasa un archivo el cual contiene las lineas como se ejecutarian en la 
  * terminal. Luego devuelve en otro archivo lo que imprime el programa. */
 int main(){

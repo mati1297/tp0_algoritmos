@@ -20,7 +20,14 @@
 
 using namespace std;
 
+
+/* Funcion a la que se le pasan variables con los argumentos. Llama al metodo
+ * de la clase cmdline que a su vez llama a las funciones de opcion, donde los
+ * argumentos son procesados y guardados. Y luego los devuelve por las variables pasadas.
+ * Devuelve la funcion a realizar elegida por nombre.*/
 funcion_t leer_cmdline(int argc, char * const [], istream*&, ostream*&, ifstream*&, ofstream*&);
+
+/* Funcion que se encarga de cargar el vector opciones*/
 void cargar_vector_argumentos(option_t*);
 
 

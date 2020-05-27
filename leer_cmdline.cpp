@@ -6,15 +6,30 @@
 using namespace std;
 
 
-/* Declaro las funciones aca ya que sino el main las incluye y
- * como no las encuentra declaradas da un warning */
+/* Prototipos de funciones de opcion */
+
+/* Funcion que maneja la opcion input. De ser pasado
+ * el argumento por default, se lee por cin. De ser pasado
+ * un archivo, se abre y se indica que se lee de el. */
 static void opt_input(string const &);
+
+/* Funcion que maneja la opcion output. De ser pasado
+ * el argumento por default, se imprime por cout. De ser pasado
+ * un archivo, se abre y se indica que se imprime en el. */
 static void opt_output(string const &);
+
+/* Funcion que maneja la opcion funcion. Por defecto indica
+ * que se hace la funcion f(z) = z. */
 static void opt_funcion(string const &);
+
+/* Funcion que maneja la opcion help. Imprime el archivo help.txt
+ * y termina el programa con exito. */
 static void opt_help(string const &);
 
 
-/* Variables globales de parámetros */
+
+/* Variables globales de parámetros para ser
+ * accedidas desde las funciones de opcion. */
 static istream *input = 0;
 static ostream *output = 0;
 static ifstream input_file;
@@ -22,20 +37,19 @@ static ofstream output_file;
 static funcion_t funcion;
 
 
-/* Funcion a la que se le pasan variables con los argumentos. Llama a las
- * distintas funciones que leen e interpretan los argumentos y luego los devuelve
- * por las variables pasadas. Devuelve la funcion a realizar elegida por nombre.*/
 funcion_t leer_cmdline(int argc, char * const argv[], istream*& input_, ostream*& output_, ifstream*& input_file_, ofstream*& output_file_){
-	static option_t options[OPTIONS_CANT];
-	cargar_vector_argumentos(options);
-	cmdline cmdl(options);
-	cmdl.parse(argc, argv);
+	static option_t options[OPTIONS_CANT]; //Se crea el vector static de opciones
+	cargar_vector_argumentos(options); //Se carga el vector
+	cmdline cmdl(options); //Se crea el objeto cmdline
+	cmdl.parse(argc, argv); //Se llama al metodo de la clase cmdline
 	
+	//Se cargan las variables pasadas.
 	input_ = input;
 	output_ = output;
 	input_file_ = &input_file;
 	output_file_ = &output_file;
 	
+	//Se devuelve la funcion elegida.
 	return funcion;
 } 
 
@@ -45,8 +59,6 @@ void cargar_vector_argumentos(option_t* options){
 	options[2] = {1, "f", "funcion", "-", opt_funcion, OPT_DEFAULT};
 	options[3] = {0, "h", "help", NULL, opt_help, OPT_DEFAULT};
 }
-
-
 
 static void opt_input(string const & arg) {
 	if(arg == "-")
@@ -60,6 +72,7 @@ static void opt_input(string const & arg) {
 		exit(EXIT_FAILURE);
 	}
 }
+
 static void opt_output(string const & arg) {
 	if(arg == "-")
 		output = &cout;
@@ -72,6 +85,7 @@ static void opt_output(string const & arg) {
 		exit(EXIT_FAILURE);
 	}
 }
+
 static void opt_funcion(string const & arg) {
 	if(arg == "-" || arg == CMD_Z)
 		funcion = Z;
@@ -84,6 +98,7 @@ static void opt_funcion(string const & arg) {
 		exit(EXIT_FAILURE);
 	}
 }
+
 static void opt_help(string const & arg) {
 	string line;
 	ifstream archivo_help;

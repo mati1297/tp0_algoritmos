@@ -4,12 +4,8 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include "aux_functions.h"
 
-/*Constructor por defecto del objeto Imagen.
- * Los valores por defecto estan definidos por las macros
- * VALOR_DEF. Se asume que no hay error al hacer el resize
- * al ser la cantidad por defecto un valor chico.*/
+
 Imagen::Imagen(){
 	columnas = COLUMNAS_DEF;
 	filas = FILAS_DEF;
@@ -19,12 +15,6 @@ Imagen::Imagen(){
 		matriz[i].resize(COLUMNAS_DEF, VALOR_DEF);
 }
 
-/*Constructor del objeto imagen.
- * Se le pasa: cantidad de filas, columnas, el valor maximo
- * de intensidad, y el valor con que se quiere rellenar la imagen
- * (entre 0 e intensidad, si se pasa algo mayor llena con VALOR_DEF).
- * En caso de haber un error al hacer el resize, se crea la matriz
- * con el VALOR_DEF y se imprime un error.*/
 Imagen::Imagen(int filas_, int columnas_, int intensidad_, int valor_){
 	filas = filas_;
 	columnas = columnas_;
@@ -35,7 +25,6 @@ Imagen::Imagen(int filas_, int columnas_, int intensidad_, int valor_){
 		matriz.resize(filas_);
 	}
 	catch(std::bad_alloc &err){
-		std::cout << MSJ_ERROR_MEMORIA << std::endl;
 		matriz.resize(FILAS_DEF);
 	}
 	for(int i = 0; i < filas_; i++){
@@ -43,13 +32,11 @@ Imagen::Imagen(int filas_, int columnas_, int intensidad_, int valor_){
 			matriz[i].resize(columnas_, valor_);
 		}
 		catch(std::bad_alloc &err){
-			std::cout << MSJ_ERROR_MEMORIA << std::endl;
 			matriz[i].resize(COLUMNAS_DEF, valor_);
 		}
 	}
 }
 
-/* Constructor por copia */
 Imagen::Imagen(const Imagen& original){
 	filas = original.filas;
 	columnas = original.columnas;
@@ -57,7 +44,6 @@ Imagen::Imagen(const Imagen& original){
 	matriz = original.matriz;
 }
 
-/*Destructor del objeto imagen*/
 Imagen::~Imagen(){
 }
 
@@ -83,8 +69,6 @@ bool Imagen::operator!=(const Imagen & right) const{
 	return false;
 }
 
-
-
 int Imagen::getFilas() const{
   return filas;
 }
@@ -97,14 +81,6 @@ int Imagen::getIntensidad() const{
   return intensidad;
 }
 
-
-
-/* Funcion que transforma la imagen. Elige que transformacion
- * realizar a partir de la variable de tipo enumerativo funcion_t
- * que transformacion realizar. Ninguna de las funciones transforma
- * la imagen de la que la funcion es metodo, sino que devuelve la
- * imagen transformada para ser guardada en una nueva o en ella
- * misma.*/
 Imagen Imagen::transformar(funcion_t f) const{
 	switch(f) {
 		case Z:
@@ -124,14 +100,12 @@ Imagen Imagen::transformar(funcion_t f) const{
 	}
 }
 
-
-/* Transforma la imagen en ella misma */
 Imagen Imagen::transf_z() const{
 	Imagen aux = *this;
 	return aux;
 }
 
-/* Realiza la transformación exponencial */
+
 Imagen Imagen::transf_exp() const{
 	Imagen aux = Imagen(filas, columnas, intensidad, VALOR_DEF);
 	double x_0, y_0, x, y;
@@ -155,7 +129,7 @@ Imagen Imagen::transf_exp() const{
 	return aux;
 }
 
-/* Realiza la transformacion z cuadrado */
+
 Imagen Imagen::transf_cuadrado() const{
 	Imagen aux = Imagen(filas, columnas, intensidad, VALOR_DEF);
 	double x_0, y_0, x, y;
@@ -177,13 +151,6 @@ Imagen Imagen::transf_cuadrado() const{
 	return aux;
 }
 
-/* Metodo para cargar una imagen a partir de un archivo PGM.
- * Si encuentra un error imprime un mensaje y cierra el programa.
- * Al leer, la función ignora todos los comentarios (que comienzan
- * con "#" (segun la macro definida). Además ignora todos los espacios
- * que pueda haber al comienzo de una linea. Si una linea está totalmente
- * vacia se tomará como un error.
- * */
 int Imagen::readPGM(std::istream& input){
 	std::string line;
 	int pos_space;
@@ -192,7 +159,7 @@ int Imagen::readPGM(std::istream& input){
 	 * de lectura de pixeles de la imagen)*/
 	int j_inf = -1;
 
-	/*Verificación de que el archivo es tiene el header
+	/*Verificación de que el archivo tiene el header
 	 * "P2", que es el formato que se desea leer.
 	 * Antes de cada lectura, se quitan todos los espacios del inicio
 	 * de la linea y se verifican que la linea sea un comentario.
@@ -217,8 +184,7 @@ int Imagen::readPGM(std::istream& input){
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
 			break;
 
-	/*Solo se aceptan espacios comunes entre los parametros,
-	 * no '\t', etc.*/
+
 	pos_space = encontrarEspacio(line);
 	try{
 		columnas = std::stoi(line.substr(0, pos_space));
@@ -234,10 +200,14 @@ int Imagen::readPGM(std::istream& input){
 		std::cerr << MSJ_ERROR_FILAS << std::endl;
 		return(EXIT_FAILURE);
 	}
+	
 	if(filas <= 0 || columnas <= 0){
 		std::cerr << MSJ_ERROR_TAMANO_INVALIDO << std::endl;
 		return(EXIT_FAILURE);
 	}
+	
+	//Se hace el resize de las filas y columnas.
+	
 	try{
 		matriz.resize(filas);
 	}
@@ -245,6 +215,7 @@ int Imagen::readPGM(std::istream& input){
 		std::cerr << MSJ_ERROR_MEMORIA << std::endl;
 		return(EXIT_FAILURE);
 	}
+	
 	for(int i = 0; i < filas; i++){
 		try{
 			matriz[i].resize(columnas);
@@ -276,10 +247,10 @@ int Imagen::readPGM(std::istream& input){
 		return(EXIT_FAILURE);
 	}
 
+
 	while(getline(input, line))
 		if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
 			break;
-
 
 	/*Se leen los datos de cada pixel de la imagen del archivo .pgm. No permite
 	 * comentarios entre lineas. No importa la cantidad de pixeles que
@@ -360,8 +331,7 @@ int Imagen::readPGM(std::istream& input){
 }
 
 
-/* Se guarda el objeto imagen en un archivo ".pgm". El numero de numeros
- * por linea esta dado por la macro NUMEROS_LINEA_SALIDA.*/
+
 void Imagen::savePGM(std::ostream& output){
 	output << PGM_INDICADOR << std::endl
 		   << PGM_COMENTARIO << COMENTARIO << std::endl
@@ -378,4 +348,22 @@ void Imagen::savePGM(std::ostream& output){
 			}
 		}
 	}
+}
+
+std::string quitarEspaciosInicio(std::string input){
+	int i;
+	for(i = 0; i < int(input.length()); i++){
+		if(!isspace(input[i]))
+			break;
+	}
+	return input.substr(i);
+}
+
+int encontrarEspacio(std::string input){
+	int i;
+	for(i = 0; i < int(input.length()); i++){
+		if(isspace(input[i]))
+			return i;
+	}
+	return -1;
 }
