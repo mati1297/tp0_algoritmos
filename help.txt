@@ -2,6 +2,6 @@ Programa para aplicar transformaciones complejas a imagenes.
 Uso: 
 ./programa -f funcion [requerido] -i inputstream -o outputstream 
 
--f --funcion exp [funciones disponibles: z, exp, cuadrado] 
+-f --funcion exp [funciones disponibles: z, 'exp(z)', cuadrado] 
 -i --input inputstream [si no se especifica o '-' sera cin]
 -o --output outputstream [si no se especifica o '-' sera cout]
