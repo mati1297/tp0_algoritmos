@@ -15,6 +15,7 @@
 
 #define PGM_COMENTARIO '#'
 #define PGM_INDICADOR "P2"
+#define PGM_INDICADOR_WIN "P2\r"
 #define COMENTARIO "TP0 Algoritmos y Programacion 2. Fiuba. 2020"
 #define SPACE ' '
 

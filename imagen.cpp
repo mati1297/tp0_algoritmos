@@ -168,7 +168,7 @@ int Imagen::readPGM(std::istream& input){
     if((line = quitarEspaciosInicio(line))[0] != PGM_COMENTARIO)
       break;
 
-  if(line != PGM_INDICADOR){
+  if((line != PGM_INDICADOR) && (line != PGM_INDICADOR_WIN)){
     std::cerr<<MSJ_ERROR_PGM_INDICADOR<<std::endl;
     return(EXIT_FAILURE);
   }

@@ -1,6 +1,5 @@
-CC = g++-7
+CC = g++
 CFLAGS  = -pedantic -Wall
-
 
 default: imagen clean
 
