@@ -2,7 +2,7 @@
 #include <fstream>
 #include "imagen.h"
 #include "cmdline.h"
-#include "argumentos_cmdline.h"
+#include "leer_cmdline.h"
 
 
 using namespace std;
@@ -19,7 +19,7 @@ int main(int argc, char * const argv[]) {
 	funcion_t funcion;
 	
 	
-	funcion = leer_argumentos(argc, argv, input_, output_, input_file_, output_file_);
+	funcion = leer_cmdline(argc, argv, input_, output_, input_file_, output_file_);
 	
 	
 	Imagen imagen_input = Imagen(); //Se crea una nueva imagen

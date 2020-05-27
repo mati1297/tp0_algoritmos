@@ -20,7 +20,7 @@
 
 using namespace std;
 
-funcion_t leer_argumentos(int argc, char * const [], istream*&, ostream*&, ifstream*&, ofstream*&);
+funcion_t leer_cmdline(int argc, char * const [], istream*&, ostream*&, ifstream*&, ofstream*&);
 void cargar_vector_argumentos(option_t*);
 
 

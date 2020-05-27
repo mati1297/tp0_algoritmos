@@ -1,6 +1,6 @@
 #include <iostream>
 #include "cmdline.h"
-#include "argumentos_cmdline.h"
+#include "leer_cmdline.h"
 #include "imagen.h"
 
 using namespace std;
@@ -25,7 +25,7 @@ static funcion_t funcion;
 /* Funcion a la que se le pasan variables con los argumentos. Llama a las
  * distintas funciones que leen e interpretan los argumentos y luego los devuelve
  * por las variables pasadas. Devuelve la funcion a realizar elegida por nombre.*/
-funcion_t leer_argumentos(int argc, char * const argv[], istream*& input_, ostream*& output_, ifstream*& input_file_, ofstream*& output_file_){
+funcion_t leer_cmdline(int argc, char * const argv[], istream*& input_, ostream*& output_, ifstream*& input_file_, ofstream*& output_file_){
 	static option_t options[OPTIONS_CANT];
 	cargar_vector_argumentos(options);
 	cmdline cmdl(options);
