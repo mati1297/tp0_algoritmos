@@ -44,7 +44,7 @@ cmdline::parse(int argc, char * const argv[])
 		// par�metro no-opci�n es un error.
 		//
 		if (argv[i][0] != '-') {
-			cerr << "Invalid non-option argument: "
+			cerr << "Parametro no opcion invalido: "
 			     << argv[i]
 			     << endl;
 			exit(1);
@@ -79,10 +79,10 @@ cmdline::parse(int argc, char * const argv[])
 		if (op->flags & OPT_SEEN)
 			continue;
 		if (op->flags & OPT_MANDATORY) {
-			cerr << "Option "
+			cerr << "La opcion "
 			     << "-"
 			     << OPTION_NAME(op)
-			     << " is mandatory."
+			     << " es obligatoria."
 			     << "\n";
 			exit(1);
 		}
@@ -115,7 +115,7 @@ cmdline::do_long_opt(const char *opt, const char *arg)
 				// el mismo haya sido provisto.
 				//
 				if (arg == 0) {
-					cerr << "Option requires argument: "
+					cerr << "La opcion requiere argumento: "
 					     << "--"
 					     << opt
 					     << "\n";
@@ -135,7 +135,7 @@ cmdline::do_long_opt(const char *opt, const char *arg)
 	// Error: opci�n no reconocida. Imprimimos un mensaje
 	// de error, y finalizamos la ejecuci�n del programa.
 	//
-	cerr << "Unknown option: "
+	cerr << "Opcion desconocida: "
 	     << "--"
 	     << opt
 	     << "."
@@ -174,7 +174,7 @@ cmdline::do_short_opt(const char *opt, const char *arg)
 				// el mismo haya sido provisto.
 				//
 				if (arg == 0) {
-					cerr << "Option requires argument: "
+					cerr << "La opcion requiere argumento: "
 					     << "-"
 					     << opt
 					     << "\n";
@@ -194,7 +194,7 @@ cmdline::do_short_opt(const char *opt, const char *arg)
 	// Error: opci�n no reconocida. Imprimimos un mensaje
 	// de error, y finalizamos la ejecuci�n del programa.
 	//
-	cerr << "Unknown option: "
+	cerr << "Opcion desconocida: "
 	     << "-"
 	     << opt
 	     << "."
