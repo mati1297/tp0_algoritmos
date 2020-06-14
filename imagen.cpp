@@ -1,9 +1,10 @@
 #include "imagen.h"
 
 #include <cmath>
-#include <vector>
 #include <fstream>
 #include <string>
+
+#include "vector.h"
 
 
 Imagen::Imagen(){

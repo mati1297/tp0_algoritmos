@@ -2,10 +2,11 @@
 #define IMAGEN_H
 
 #include <cmath>
-#include <vector>
 #include <fstream>
 #include <string>
 #include <iostream>
+
+#include "vector.h"
 
 #define FILAS_DEF 1
 #define COLUMNAS_DEF 1
@@ -47,7 +48,7 @@ private:
   int filas;
   int columnas;
   int intensidad;
-  std::vector<std::vector<int> > matriz = std::vector<std::vector<int> >(FILAS_DEF);
+  Vector<Vector<int>> matriz;
   
   /* Transforma la imagen en ella misma */
     Imagen transf_z() const;
