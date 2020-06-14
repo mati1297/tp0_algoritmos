@@ -17,7 +17,7 @@
 #define PGM_INDICADOR "P2"
 #define PGM_INDICADOR_WIN "P2\r"
 #define COMENTARIO "TP0 Algoritmos y Programacion 2. Fiuba. 2020"
-#define SPACE ' '
+#define SPACE " \t\v\f\r"
 
 #define MSJ_ERROR_PGM_INDICADOR "Error al leer (indicador distinto de P2)"
 #define MSJ_ERROR_FILAS "Error al leer (filas)"
@@ -30,6 +30,7 @@
 #define MSJ_ERROR_INTENSIDAD_MIN "Error al leer los pixeles, la intensidad es menor que 0"
 #define MSJ_ERROR_INTENSIDAD_INVALIDA "Error en intensidad máxima, debe ser mayor que 0"
 #define MSJ_ERROR_TAMANO_INVALIDO "Error en el tamaño, uno de los ejes es 0 o menor"
+#define MSJ_ERROR_LINEA_VACIA "Error, hay una linea vacia"
 
 // Tipo enumerativo utilizado para decidir que funcion usar.
 enum funcion_t { Z = 0,  EXPONENCIAL, CUADRADO};
@@ -56,6 +57,21 @@ private:
   
   /* Realiza la transformacion z cuadrado */
   Imagen transf_cuadrado() const;
+  
+  /*Recibe una cadena, la valida, guarda el valor como intensidad y devuelve la cadena cortada*/
+  int setIntensidad(std::string&);
+  
+  /*Recibe una cadena, la valida, guarda el valor como cantidad de columnas y devuelve la cadena cortada*/
+  int setColumnas(std::string&);
+  
+  /*Recibe una cadena, la valida, guarda el valor como cantidad de filas y devuelve la cadena cortada*/
+  int setFilas(std::string&);
+  
+  /*Recibe una input stream, lo lee, lo valida y carga la matriz*/
+  int setMatriz(std::istream&);
+  
+  /*Actualiza el tamaño de la matriz al tamaño actual que indica los atributos columnas y filas*/
+  int resizeMatriz();
 
 public:
   /*Constructor por defecto del objeto Imagen.
@@ -120,15 +136,6 @@ public:
 };
 
 
-/* Funciones auxiliares de la clase. No son metodos. */
-
-/* Se lee una cadena y se remueven todos los espacios del principio,
- * se devuelve la nueva cadena. */
-std::string quitarEspaciosInicio(std::string);
-
-/* Se lee una cadena y se devuelve la posicion del primer espacio de
- * la cadena. Si no se encuentra, se devuelve -1.*/
-int encontrarEspacio(std::string);
 
 
 
