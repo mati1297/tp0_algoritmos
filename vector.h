@@ -151,7 +151,7 @@ void Vector<T>::resize(const size_t l){
 	}
 	else{
 		size = l;
-		T* new_ptr = new T[l];
+		T* new_ptr;
 		try{
 			new_ptr = new T[l];
 		}
